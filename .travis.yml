@@ -1,0 +1,10 @@
+dist: bionic
+
+stages:
+  - name: test
+    if: NOT (commit_message =~ /(skip-test-stage)/ AND branch = master)
+jobs:
+  include:
+    - stage: test
+      script:
+        - echo `date`
