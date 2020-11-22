@@ -24,4 +24,4 @@ jobs:
       - name: Echo parameter
         run: |
           echo "Deploying ${{ github.event.inputs.ticket-id }} on hotfix${{ github.event.inputs.team-no }}.hpi-schul-cloud.org"
-          echo "Workflow triggered by "Deploying ${{ github.event_name }}"
+          echo "Workflow triggered by ${{ github.event_name }}"
