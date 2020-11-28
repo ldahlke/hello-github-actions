@@ -22,63 +22,28 @@ jobs:
   deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    env:
+      HERE: Lars
+    defaults:
+      run:
+        working-directory: ./sc-app-deploy
+          
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
       - name: Echo parameter
         run: |
           echo "GITHUB event trigger:       ${{ github.event_name }}
           echo "GITHUB input branch-prefix: ${{ github.event.inputs.branch-prefix }}
           echo "GITHUB input team-no:       ${{ github.event.inputs.team-no }}
           echo "GITHUB input ticket-id:     ${{ github.event.inputs.ticket-id }}
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
 
       # Print the working directory and allow the execution of the sc-app-deploy.py script.
       - name: Display working directory
         run: |
           ls -la .
-          chmod a+x ./sc-app-deploy/sc-app-deploy.py
+          env
+          pwd
         shell: bash
-      # Run the deployment
-      - name: Running scheduled deployment for develop 
-        if: github.event_name == 'schedule'
-        env:
-          CI_GITHUB_TRAVISUSER_SWARMVM_KEY: ${{ secrets.CI_GITHUB_TRAVISUSER_SWARMVM_KEY }}
-        working-directory: ./sc-app-deploy
-        run: ./sc-app-deploy.py develop --schduled
-
-      - name: Running deployment for develop
-        if: github.event.inputs.branch-prefix == 'develop' && github.event_name != 'schedule'
-        env:
-          CI_GITHUB_TRAVISUSER_SWARMVM_KEY: ${{ secrets.CI_GITHUB_TRAVISUSER_SWARMVM_KEY }}
-        working-directory: ./sc-app-deploy
-        run: ./sc-app-deploy.py develop ${{ github.event.inputs.team-no }}
-
-      - name: Running deployment for feature
-        if: github.event.inputs.branch-prefix == 'feature' && github.event_name != 'schedule'
-        env:
-          CI_GITHUB_TRAVISUSER_SWARMVM_KEY: ${{ secrets.CI_GITHUB_TRAVISUSER_SWARMVM_KEY }}
-        working-directory: ./sc-app-deploy
-        run: ./sc-app-deploy.py feature ${{ github.event.inputs.team-no }} ${{ github.event.inputs.ticket-id }} 
-
-      - name: Running deployment for release
-        if: github.event.inputs.branch-prefix == 'release' && github.event_name != 'schedule'
-        env:
-          CI_GITHUB_TRAVISUSER_SWARMVM_KEY: ${{ secrets.CI_GITHUB_TRAVISUSER_SWARMVM_KEY }}
-        working-directory: ./sc-app-deploy
-        run: ./sc-app-deploy.py release ${{ github.event.inputs.team-no }}
-
-      - name: Running deployment for hotfix
-        if: github.event.inputs.branch-prefix == 'hotfix' && github.event_name != 'schedule'
-        env:
-          CI_GITHUB_TRAVISUSER_SWARMVM_KEY: ${{ secrets.CI_GITHUB_TRAVISUSER_SWARMVM_KEY }}
-        working-directory: ./sc-app-deploy
-        run: ./sc-app-deploy.py hotfix ${{ github.event.inputs.team-no }} ${{ github.event.inputs.ticket-id }} 
-
-      - name: Running deployment for master
-        if: github.event.inputs.branch-prefix == 'master' && github.event_name != 'schedule'
-        env:
-          CI_GITHUB_TRAVISUSER_SWARMVM_KEY: ${{ secrets.CI_GITHUB_TRAVISUSER_SWARMVM_KEY }}
-        working-directory: ./sc-app-deploy
-        run: ./sc-app-deploy.py master ${{ github.event.inputs.team-no }}
