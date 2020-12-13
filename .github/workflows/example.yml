@@ -1,4 +1,8 @@
+name: Example
+on:
+  workflow-dispatch:
 jobs:
+  runs-on: ubuntu-latest
   example-job:
     name: Save output
     steps:
