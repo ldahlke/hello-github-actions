@@ -2,9 +2,9 @@ name: Example
 on:
   workflow_dispatch:
 jobs:
-  runs-on: ubuntu-latest
   example-job:
-    name: Save output
+    runs-on: ubuntu-latest
+    name: Save Output
     steps:
       - shell: bash
         run: |
