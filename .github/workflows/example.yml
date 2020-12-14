@@ -6,9 +6,11 @@ jobs:
     runs-on: ubuntu-20.04
     name: Save Output
     steps:
+      - uses: nelonoel/branch-name@v1.0.1
       - shell: bash
         run: |
           echo ${{ github.ref }}
+          echo ${BRANCH_NAME}
           expr 1 + 1 > output.log
           python3 --version
       - name: Upload output file
