@@ -8,6 +8,7 @@ jobs:
     steps:
       - shell: bash
         run: |
+          echo ${{ git.ref }}
           expr 1 + 1 > output.log
           python3 --version
       - name: Upload output file
