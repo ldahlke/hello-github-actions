@@ -26,26 +26,12 @@ jobs:
         id: regex-match
         with:
           text: ${BRANCH_NAME}
-          regex: '/ast/'
+          regex: '/a\s\t/'
           flags: gm
 
       - name: See matches
         if: ${{ steps.regex-match.outputs.match != '' }}
         run: |
           echo "JIRA_TicketID is ${{steps.regex-match.outputs.match}}"
-        
-      - name: Find JIRA ticket references
-        id: jira
-        uses: AsasInnab/regex-action@v1
-        with:
-          # regex_pattern: '[A-Z]+-[0-9]+'
-          regex_pattern: '/ast/'
-          regex_flags: 'gm'
-          search_string: ${BRANCH_NAME}
-          # search_string: ${steps.branch.outputs.BRANCH_NAME}
-      - name: Echo JIRA reference
-        run: |
-          echo "JIRA_TicketID is ${{steps.jira.outputs.first_match}}"
-          echo JIRA_TicketID=${steps.jira.outputs.first_match} >> $GITHUB_ENV
-
+ 
          
