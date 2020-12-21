@@ -26,8 +26,8 @@ jobs:
         id: regex-match
         with:
           text: ${BRANCH_NAME}
-          regex: 'ast'
-          flags: gim
+          regex: '/ast/'
+          flags: gm
 
       - name: See matches
         if: ${{ steps.regex-match.outputs.match != '' }}
