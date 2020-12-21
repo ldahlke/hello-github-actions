@@ -39,8 +39,8 @@ jobs:
         uses: AsasInnab/regex-action@v1
         with:
           # regex_pattern: '[A-Z]+-[0-9]+'
-          regex_pattern: 'ast'
-          regex_flags: 'gim'
+          regex_pattern: '/ast/'
+          regex_flags: 'gm'
           search_string: ${BRANCH_NAME}
           # search_string: ${steps.branch.outputs.BRANCH_NAME}
       - name: Echo JIRA reference
