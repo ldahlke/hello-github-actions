@@ -22,6 +22,16 @@ jobs:
         run: |
           echo ${{ github.ref }}
           echo ${BRANCH_NAME}
+      - name: Read version file
+        # The version to be used for tagging the images is read out of the version file
+        id: read_version
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./version
+      - name: Set env AVCHECK_VERSION
+        run: |
+          echo "Version of antivirus_service is ${{ steps.read_version.outputs.content }}"
+          echo "AVCHECK_VERSION=${{ steps.read_version.outputs.content }}" >> $GITHUB_ENV
       - uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
         with:
