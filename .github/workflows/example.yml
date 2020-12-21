@@ -27,9 +27,9 @@ jobs:
         uses: AsasInnab/regex-action@v1
         with:
           # regex_pattern: '[A-Z]+-[0-9]+'
-          regex_pattern: 'OPS-1722'
+          regex_pattern: 'ast'
           regex_flags: 'gim'
-          search_string: 'feature/OPS-1722-hugo_geht_wandern'
+          search_string: echo ${BRANCH_NAME}
           # search_string: ${steps.branch.outputs.BRANCH_NAME}
       - name: Echo JIRA reference
         run: |
