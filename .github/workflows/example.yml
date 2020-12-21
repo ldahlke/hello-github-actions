@@ -25,7 +25,7 @@ jobs:
       - uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
         with:
-          text: ${BRANCH_NAME}
+          text: ${{ env.BRANCH_NAME }}
           regex: '/a\s\t/'
           flags: gm
 
