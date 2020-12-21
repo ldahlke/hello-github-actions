@@ -26,7 +26,7 @@ jobs:
         id: regex-match
         with:
           text: ${{ env.BRANCH_NAME }}
-          regex: '/ast/'
+          regex: 'ast'
           flags: gm
 
       - name: See matches
