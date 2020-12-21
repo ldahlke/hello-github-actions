@@ -22,4 +22,18 @@ jobs:
         run: |
           echo ${{ github.ref }}
           echo ${BRANCH_NAME}
+      - name: Find JIRA ticket references
+        id: jira
+        uses: AsasInnab/regex-action@v1
+        with:
+          # regex_pattern: '[A-Z]+-[0-9]+'
+          regex_pattern: 'OPS-1722'
+          regex_flags: 'gim'
+          search_string: 'feature/OPS-1722-hugo_geht_wandern'
+          # search_string: ${steps.branch.outputs.BRANCH_NAME}
+      - name: Echo JIRA reference
+        run: |
+          echo "JIRA_TicketID is ${{steps.jira.outputs.first_match}}"
+          echo JIRA_TicketID=${steps.jira.outputs.first_match} >> $GITHUB_ENV
+
          
